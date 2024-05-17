@@ -22,7 +22,7 @@ spec:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://terraform-2024031923023447980000000d.c36c48ce06uv.us-east-1.rds.amazonaws.com:5432/postgres"
+              value: "jdbc:postgresql://terraform-20240517151539422200000001.cr02qm0m4uaz.us-east-1.rds.amazonaws.com:5432/postgres"
             - name: SPRING_DATASOURCE_USERNAME
               value: "postgres"
             - name: SPRING_DATASOURCE_PASSWORD
@@ -73,7 +73,3 @@ spec:
         target:
           type: Utilization
           averageUtilization: 80
-
-
-
-
