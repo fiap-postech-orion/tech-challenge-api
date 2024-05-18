@@ -6,7 +6,8 @@ on:
     types: [ closed ]
 
 jobs:
-  terraform:
+
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,6 +19,19 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Docker image
+        run: docker build -t techchallenge-eks .
+
+      - name: Tag Docker image
+        run: docker tag techchallenge-eks:latest 084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks:latest
+
+      - name: Push Docker image to ECR
+        run: docker push 084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks:latest
 
         # Passo adicional para configurar kubectl
       - name: Install kubectl

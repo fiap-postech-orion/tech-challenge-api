@@ -123,6 +123,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>techchallenge-eks</finalName>
 	</build>
 
 </project>
