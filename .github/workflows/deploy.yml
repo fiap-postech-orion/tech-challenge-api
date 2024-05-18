@@ -18,6 +18,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Debug Environment
+        run: |
+          ls -al .github/workflows/
+          cat .github/workflows/aws-setup.yml
+
       # Sets up JDK 17, which is required for building Java applications using Maven
       - name: Set up JDK 17
         uses: actions/setup-java@v2
