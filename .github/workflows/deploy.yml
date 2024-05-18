@@ -8,7 +8,6 @@ on:
 env:
   ECR_REPOSITORY: 084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks
   IMAGE_NAME: docker-image
-  AWS_SETUP_WORKFLOW_PATH: ./.github/workflows/aws-setup.yml@main
 
 jobs:
   build:
@@ -40,7 +39,7 @@ jobs:
 
       # Sets up AWS credentials and logs into ECR
       - name: Call AWS Setup Workflow
-        uses: ${{ env.AWS_SETUP_WORKFLOW_PATH }}
+        uses: ./.github/workflows/aws-setup.yml
 
       # Builds the Docker image
       - name: Build Docker image
@@ -66,8 +65,11 @@ jobs:
     needs: build
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Call AWS Setup Workflow
-        uses: ${{ env.AWS_SETUP_WORKFLOW_PATH }}
+        uses: ./.github/workflows/aws-setup.yml
 
       # Downloads the Docker image artifact from the previous job
       - name: Download Docker image artifact
@@ -87,8 +89,11 @@ jobs:
     needs: deploy
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Call AWS Setup Workflow
-        uses: ${{ env.AWS_SETUP_WORKFLOW_PATH }}
+        uses: ./.github/workflows/aws-setup.yml
 
       - name: Install kubectl
         run: |
