@@ -16,13 +16,13 @@ spec:
     spec:
       containers:
         - name: app
-          image: silvageovane/tech-challenger-pos-tech:v2
+          image: 084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://terraform-20240517151539422200000001.cr02qm0m4uaz.us-east-1.rds.amazonaws.com:5432/postgres"
+              value: "jdbc:postgresql://terraform-2024051814432624320000000d.cr02qm0m4uaz.us-east-1.rds.amazonaws.com:5432/postgres"
             - name: SPRING_DATASOURCE_USERNAME
               value: "postgres"
             - name: SPRING_DATASOURCE_PASSWORD
@@ -47,7 +47,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 8080
+    - port: 80
       targetPort: 8080
       protocol: TCP
   selector:
