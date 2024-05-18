@@ -6,7 +6,7 @@ on:
     types: [ closed ]
 
 env:
-  ECR_REPOSITORY: 084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks
+  ECR_REPOSITORY: '084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks'
   IMAGE_NAME: docker-image
 
 jobs:
@@ -97,6 +97,9 @@ jobs:
       # Loads the Docker image from the artifact
       - name: Load Docker image
         run: docker load -i ./techchallenge-eks.tar
+
+      - name: List Docker images
+        run: docker images
 
       - name: Push Docker image to ECR
         run: docker push ${{ env.ECR_REPOSITORY }}:latest
