@@ -59,7 +59,7 @@ jobs:
 
       # Saves the Docker image as an artifact
       - name: Save Docker image as artifact
-        run: docker save techchallenge-eks:latest -o techchallenge-eks.tar
+        run: docker save ${{ env.ECR_REPOSITORY }}:latest -o techchallenge-eks.tar
 
       # Uploads the Docker image artifact to be used in the deploy job
       - name: Upload Docker image artifact
@@ -97,6 +97,9 @@ jobs:
       # Loads the Docker image from the artifact
       - name: Load Docker image
         run: docker load -i ./techchallenge-eks.tar
+
+      #- name: Tag Docker image for ECR
+      #  run: docker tag techchallenge-eks:latest ${{ env.ECR_REPOSITORY }}:latest
 
       - name: List Docker images
         run: docker images
