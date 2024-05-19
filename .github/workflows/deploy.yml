@@ -8,6 +8,7 @@ on:
 env:
   ECR_REPOSITORY: '084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks'
   IMAGE_NAME: docker-image
+  K8S_DEPLOYMENT_NAME: app
 
 jobs:
   build:
@@ -135,3 +136,9 @@ jobs:
 
       - name: Apply Kubernetes configuration
         run: kubectl apply -f k8s/app.yaml
+
+      - name: Force Rollout
+        run: kubectl rollout restart deployment ${{ env.K8S_DEPLOYMENT_NAME }}
+
+      - name: Get Kubernetes Deployment Details
+        run: kubectl describe deployment ${{ env.K8S_DEPLOYMENT_NAME }}
