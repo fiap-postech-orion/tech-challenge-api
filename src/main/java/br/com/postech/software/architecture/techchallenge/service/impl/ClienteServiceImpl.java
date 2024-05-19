@@ -17,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -29,19 +28,10 @@ public class ClienteServiceImpl implements ClientService {
 
     @Override
     public List<ClienteDTO> listarClientesAtivos() {
-//        List<Cliente> clientesAtivos = clienteJpaRepository.findByStatus(Boolean.TRUE);
-
-        return List.of(new ClienteDTO(
-                2L,
-                "Victor Pietro",
-                "victor_pietro@hotmail.com",
-                "061.074.415-14",
-                "randompassword",
-                true));
-
-//        return clientesAtivos.stream()
-//                .map(cliente -> MAPPER.map(cliente, ClienteDTO.class))
-//                .collect(Collectors.toList());
+        List<Cliente> clientesAtivos = clienteJpaRepository.findByStatus(Boolean.TRUE);
+        return clientesAtivos.stream()
+                .map(cliente -> MAPPER.map(cliente, ClienteDTO.class))
+                .toList();
     }
 
     @Override
@@ -56,11 +46,11 @@ public class ClienteServiceImpl implements ClientService {
     @Override
     public ClienteDTO save(ClienteDTO clienteDTO) {
         var cliente = MAPPER.map(clienteDTO, Cliente.class);
-        
-        if(Objects.nonNull(cliente.getCpf())) {
-        	cliente.setCpf(CpfCnpjUtil.removeMaskCPFCNPJ(cliente.getCpf()));
+
+        if (Objects.nonNull(cliente.getCpf())) {
+            cliente.setCpf(CpfCnpjUtil.removeMaskCPFCNPJ(cliente.getCpf()));
         }
-        
+
         cliente = clienteJpaRepository.save(cliente);
 
         return MAPPER.map(cliente, ClienteDTO.class);
