@@ -29,10 +29,19 @@ public class ClienteServiceImpl implements ClientService {
 
     @Override
     public List<ClienteDTO> listarClientesAtivos() {
-        List<Cliente> clientesAtivos = clienteJpaRepository.findByStatus(Boolean.TRUE);
-        return clientesAtivos.stream()
-                .map(cliente -> MAPPER.map(cliente, ClienteDTO.class))
-                .collect(Collectors.toList());
+//        List<Cliente> clientesAtivos = clienteJpaRepository.findByStatus(Boolean.TRUE);
+
+        return List.of(new ClienteDTO(
+                2L,
+                "Victor Pietro",
+                "victor_pietro@hotmail.com",
+                "061.074.415-14",
+                "randompassword",
+                true));
+
+//        return clientesAtivos.stream()
+//                .map(cliente -> MAPPER.map(cliente, ClienteDTO.class))
+//                .collect(Collectors.toList());
     }
 
     @Override
