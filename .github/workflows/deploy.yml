@@ -6,7 +6,7 @@ on:
     types: [ closed ]
 
 env:
-  ECR_REPOSITORY: '084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks'
+  ECR_REPOSITORY: 084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks
   IMAGE_NAME: docker-image
   K8S_DEPLOYMENT_NAME: app
 
@@ -98,9 +98,6 @@ jobs:
       # Loads the Docker image from the artifact
       - name: Load Docker image
         run: docker load -i ./techchallenge-eks.tar
-
-      #- name: Tag Docker image for ECR
-      #  run: docker tag techchallenge-eks:latest ${{ env.ECR_REPOSITORY }}:latest
 
       - name: List Docker images
         run: docker images
