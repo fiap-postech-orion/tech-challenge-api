@@ -17,7 +17,7 @@ spec:
       containers:
         - name: app
           image: 084477714284.dkr.ecr.us-east-1.amazonaws.com/techchallenge-eks
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
